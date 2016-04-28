@@ -1,0 +1,46 @@
+<h1>Sessions#show</h1>
+<p>Find me in app/views/sessions/show.html.erb</p>
+
+<div class="container">
+  <div class="top_row">
+    <h4>Hi <%= @user.first_name %></h4>
+    <a href="/users">Go to Dashboard</a>
+    <a href="/users/destroy">Logout</a>
+  </div>
+
+  <div class="all_products">
+    <% if @all_products %>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Seller</th>
+        <th>Date Posted</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+      <% @all_products.each do |x| %>
+        <% if x.seller_name != session[:name] %>
+      <tr>
+        <td><%= x.product %></td>
+        <td><%= x.user.first_name %></td>
+        <td><%= x.created_at.strftime('%B %e, %Y') %></td>
+        <td>$<%= x.amount %></td>
+        <td>
+          <form action="/buys" method="post">
+            <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+            <input type="hidden" name=buy[id] value="<%= x.id %>">
+            <input type="hidden" name=buy[product] value="<%= x.product %>">
+            <input type="hidden" name=buy[amount] value="<%= x.amount %>">
+            <input type="hidden" name=buy[user] value="<%= x.user_id %>">
+            <input type="submit" value="Buy">
+          </form>
+        </td>
+        <% else %>
+      </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <% end %>
+  </div>
+
+</div>

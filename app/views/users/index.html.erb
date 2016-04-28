@@ -1,0 +1,101 @@
+<h1>Users#index</h1>
+<p>Find me in app/views/users/index.html.erb</p>
+
+
+<div class="container">
+  <div class="top_row">
+    <h4>Hi <%= @user.first_name %></h4>
+    <a href="/sessions/<%= session[:user] %>">Go to All Products</a>
+    <a href="/users/destroy">Logout</a>
+  </div>
+
+  <div class="sell_products">
+    <% (notice.kind_of?(Array) ? notice : [notice]).each do |x| %>
+       <p><%= x %></p>
+    <% end %>
+    <form action="/sells" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <label for="name">Name</label>
+      <input type="text" name=sell[name] id="name">
+      <label for="amount">Amount</label>
+      <input type="number" min="0.01" step="0.01" max="250000" name=sell[amount] id="name">
+      <button type="submit" name="button" class="btn btn-primary">Sell</button>
+    </form>
+  </div>
+
+  <div class="not_yet_sold">
+    <h4>Your Items Not Yet Sold</h4>
+    <% @sum = 0 %>
+    <% if @not_sold %>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Date Listed</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+      <% @not_sold.each do |x| %>
+      <tr>
+        <% @sum = @sum + x.amount %>
+        <td><%= x.product %></td>
+        <td><%= x.created_at.strftime('%B %e, %Y') %></td>
+        <td>$<%= x.amount %></td>
+        <td><a href="/sells/destroy/<%= x.id %>">Remove</a></td>
+      </tr>
+      <% end %>
+    </table>
+    <p class="section_total">Total: $<%= @sum %></p>
+    <% end %>
+  </div>
+
+
+  <div class="sales">
+    <h4>Your Past Sales</h4>
+    <% @sum = 0 %>
+    <% if @past_sales %>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Date Sold</th>
+        <th>Buyer</th>
+        <th>Amount</th>
+      </tr>
+      <% @past_sales.each do |y| %>
+      <tr>
+        <% @sum = @sum + y.amount %>
+        <td><%= y.product %></td>
+        <td><%= y.created_at.strftime('%B %e, %Y') %></td>
+        <td><%= y.buyer_name %></td>
+        <td>$<%= y.amount %></td>
+      </tr>
+      <% end %>
+    </table>
+    <p class="section_total">Total: $<%= @sum %></p>
+    <% end %>
+  </div>
+
+  <div class="purchases">
+    <h4>Your Past Purchases</h4>
+    <% @sum = 0 %>
+    <% if @purchased %>
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Date Purchased</th>
+        <th>Seller</th>
+        <th>Amount</th>
+      </tr>
+      <% @purchased.each do |z| %>
+      <tr>
+        <% @sum = @sum + z.amount %>
+        <td><%= z.product %></td>
+        <td><%= z.created_at.strftime('%B %e, %Y') %></td>
+        <td><%= z.user.first_name %></td>
+        <td>$<%= z.amount %></td>
+      </tr>
+      <% end %>
+    </table>
+    <p class="section_total">Total: $<%= @sum %></p>
+    <% end %>
+  </div>
+</div>

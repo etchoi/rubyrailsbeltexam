@@ -1,0 +1,41 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.not_yet_sold {
+  margin-top: 60px;
+}
+table {
+  width: 90%;
+  text-align: left;
+  padding-top: -20px
+}
+.not_yet_sold {
+  width: 70%;
+  border: 1px solid silver;
+  margin: 20px;
+  padding: 20px;
+}
+.sell_products {
+  border: 1px solid silver;
+  margin: 20px;
+  padding: 20px;
+}
+
+.sales {
+  width: 70%;
+  border: 1px solid silver;
+  margin: 20px;
+  padding: 20px;
+}
+.purchases {
+  width: 70%;
+  border: 1px solid silver;
+  margin: 20px;
+  padding: 20px;
+}
+
+.section_total{
+  text-align: right;
+}

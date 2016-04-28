@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: rorbeltexam_production
-  username: rorbeltexam
+  username: ubuntu
   password: <%= ENV['RORBELTEXAM_DATABASE_PASSWORD'] %>
